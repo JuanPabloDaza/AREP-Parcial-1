@@ -105,6 +105,14 @@ public class HttpServer {
                answer += field.toString() + "\r\n";
             }
          }else if(comand.contains("invoke")){
+            String value = comand.split("\\(")[1];
+            value = value.split("\\)")[0];
+            String className = value.split("\\,")[0];
+            String methodName = value.split("\\,")[1];
+            Class c = Class.forName(className);
+            Method method = c.getMethod(methodName, null);
+            answer += method.invoke(c,null);
+            java.lang.System.getenv();
          }
       }catch(Exception e){
          answer = "Error";
